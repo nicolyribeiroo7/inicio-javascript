@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>maquina de sucos flexivel</title>
+</head>
+<body>
+    <h2> Monte seu suco do jeito que quiser! </h2>
+    <p> Voce pode escolher uma, varias ou todas as frutas: </p>
+
+    <!-- seleçao multipla de frutas-->
+     <select id="frutas" multiple size="3" style="width: 100px;">
+        <option value="morango"> 🍓 Morango </option>
+        <option value="banana"> 🍌 Banana</option>
+        <option value="abacaxi"> 🍍 Abacaxi</option>
+     </select>
+     <br><small> (Use Ctrl ou Shift para seecionar varias frutas)</small> <br> <br>
+
+     <!-- botao para selecionar frutas-->
+      <button type="button" onclick="selecionarTodas()"> Selecionar Todas 🍓🍌🍍</button> <br> <br>
+
+      <!-- escolha o liquido-->
+       <label> Escolha o liquido:</label><br>
+       <input type="radio" name="liquido" value="agua" checked> Água 💧 <br>
+       <input type="radio" name="liquido" value="leite"> Leite 🥛 <br> <br>
+
+       <!--Açucar-->
+       <label> Açucar?</label><br>
+       <input type="checkbox" id="acucar"> Sim, quero açucar <br> <br>
+
+       <button onclick="fazerSuco()"> Preparar Suco</button>
+
+       <script>
+        //funçao principal : faz o suco com base nas escolhas
+        function fazerSuco(){
+            let frutasSelecionadas = Array.from(document.getElementById("frutas").selectedOptions).map(opcao => opcao.value);
+
+            //captura o liquido
+            let liquido = document.querySelector ("input[name='liquido']:checked").value;
+
+            //acucar sim ou nao
+            let acucar = document.getElementById("acucar").checked ? "com açucar" : "sem açucar";
+
+            // caso o usuario nao selecione fruta alguma
+            if (frutasSelecionadas.length === 0) {
+                alert ("Por favor, selecione uma fruta!");
+                return;
+            }
+
+            // junta as frutas escolhidas (ex: morangoe banana)
+            let frutasTexto = frutasSelecionadas.join(" e ");
+
+            //mensagem final
+            let sucoFinal = `seu suco de ${frutasTexto} com ${liquido} ${acucar} está pronto!`;
+
+            //exibe o resultado
+            alert(sucoFinal);
+        }
+        // funçao para selecionar todas as frutas automaticamente
+        function selecionarTodas() {
+            let lista = document.getElementById("frutas");
+            for (let i = 0; i < lista.options.length; i++){
+                lista.options[i].selected = true;
+            }
+            alert("Todas as frutas foram selecionadas!");
+        }
+       </script>
+</body>
+</html>
